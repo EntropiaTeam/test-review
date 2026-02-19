@@ -1,28 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
+import todosReducer from './todosSlice';
+import usersReducer from './usersSlice';
 
-export default configureStore({
+const store = configureStore({
     reducer: {
-        list: (state = {todos: []}, action) => {
-            switch (action.type) {
-                case 'ADD_TODO': {
-                    const newState = state;
-                    newState.todos.push(action.payload);
-                    return newState;
-                }
-                case 'REMOVE_TODO': {
-                    return {
-                        ...state,
-                        todos: state.todos.filter((t: any, index: number) => index !== action.payload),
-                    };
-                }
-                case 'CHANGE_TODOS': {
-                    return {
-                        todos: action.payload,
-                    };
-                }
-                default:
-                    return state;
-            }
-        }
-    }
-})
+        list: todosReducer,
+        users: usersReducer,
+    },
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export default store;

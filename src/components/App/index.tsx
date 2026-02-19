@@ -1,27 +1,29 @@
 import React from 'react';
-import logo from '../../logo.svg';
 import './App.css';
-import MainApp from '../MainApp';
-import {
-    useSelector,
-} from 'react-redux';
+import Main from '../Main';
+import { useDispatch } from 'react-redux';
+import { fetchUsers } from '../../store/usersSlice';
+import type { AppDispatch } from '../../store';
 
 function App() {
-    const todos = useSelector((state: {list: { todos: any[] }}) => state.list.todos);
+    const dispatch = useDispatch<AppDispatch>();
+
+    React.useEffect(() => {
+        dispatch(fetchUsers());
+    }, [dispatch]);
+
   return (
-      // туду лист для юзеров:
     <div className="App main">
       <header className="App-header">
-        TODO list with users:
-        {/*<img src={logo} className="App-logo" alt="logo" />*/}
+        TODO list with users
       </header>
-        {/* MAIN APP: */}
-        <MainApp todos={todos}/>
+        <Main />
 
         <footer className='App-footer'>
               <a
                 href="https://example.org"
                 target="_blank"
+                rel="noopener noreferrer"
                 className={"App-footer-link"}
               >
                 All right reserved
