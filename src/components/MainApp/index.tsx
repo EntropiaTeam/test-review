@@ -5,7 +5,6 @@ import UserSelect from '../UserSelect';
 import { connect } from 'react-redux';
 import styles from './MainApp.module.css';
 
-
 type Todo = {
     title: string,
     user?: number,
